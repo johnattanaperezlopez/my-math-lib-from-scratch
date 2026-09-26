@@ -79,7 +79,7 @@ def find_max(*numbers):
     if len(numbers) == 0:
         return
     maxi = float('-inf')
-    if len(numbers) == 1:
+    if type(numbers[0]) == type([1]):
         for num in numbers[0]:
             if num > maxi:
                 maxi = num
@@ -97,7 +97,7 @@ def find_min(*numbers):
     if len(numbers) == 0:
         return
     mini = float('inf')
-    if len(numbers) == 1:
+    if type(numbers[0]) == type([1]):
         for num in numbers[0]:
             if num < mini:
                 mini = num
@@ -165,3 +165,79 @@ def ceil_it(num):
 
         else:
             return int(num+1)
+
+
+def sum_it(*numbers):
+    total_sum = 0
+
+    if len(numbers) == 0:
+        return
+
+    elif type(numbers[0]) == int or type(numbers[0]) == float:
+        for num in numbers:
+            total_sum += num
+
+    else:
+        for num in numbers[0]:
+            total_sum += num
+
+    return total_sum
+
+
+def average(*nums):
+    if type(nums[0]) == type([1]):
+        return sum_it(*nums)/len(nums[0])
+
+    return sum_it(*nums)/len(nums)
+
+
+def permute_it(choices, reminders):
+    return factorial(choices)//factorial(choices-reminders)
+
+
+def combine_it(choices, reminders):
+    return int(permute_it(choices, reminders) * (1/factorial(reminders)))
+
+
+def fibonacci(num):
+    count = 2
+    tab = [0, 1]
+
+    if num == 0:
+        return 0
+    elif num == 1:
+        return 1
+    else:
+        while count <= num:
+            tab.append(tab[0] + tab[1])
+            count += 1
+            tab.pop(0)
+
+    return tab[-1]
+
+
+def factors(num):
+    result = []
+    for n in range(1, num+1):
+        if num % n == 0:
+            result.append(n)
+    return result
+
+
+
+def prime_factors(num):
+    result = []
+
+    if is_prime(num):
+        return [num]
+
+    n = 2
+    while num >= 1 and n <= num:
+        if is_prime(n) and num % n == 0:
+            result.append(n)
+            num = num // n
+
+        elif num % n != 0:
+            n += 1
+
+    return result
